@@ -20,7 +20,7 @@ namespace HealthcareAPI.Models
         public InsuranceClaim(int customerId, float amount, string detail)
         {
             this.CustomerId = customerId;
-            this.DateCreated = DateTime.Now;
+            this.DateSubmitted = DateTime.Now;
             this.Amount = amount;
             this.Detail = detail;
             this.Status = "Pending";
@@ -29,7 +29,7 @@ namespace HealthcareAPI.Models
         {
             this.Id = id;
             this.CustomerId = customerId;
-            this.DateCreated = dateCreated;
+            this.DateSubmitted = dateCreated;
             this.Amount = amount;
             this.Detail = detail;
             this.Status = status;
