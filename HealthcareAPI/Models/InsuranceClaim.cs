@@ -7,33 +7,13 @@ namespace HealthcareAPI.Models
     public class InsuranceClaim
     {
    
-        public int Id { get; set; }
-        public int CustomerId { get; set; }
-        public DateTime DateSubmitted { get; set; }
-        public float Amount { get; set; }
-        public string Detail { get; set; }
-        public string Status { get; set; }
-        public int ReviewerID { get; set; }
+        public int id { get; set; }
+        public int customer_id { get; set; }
+        public DateTime date_submitted { get; set; }
+        public double amount { get; set; }
+        public string details { get; set; }
+        public string status { get; set; }
+        public int? reviewed_by { get; set; }
 
-        public InsuranceClaim() { }
-
-        public InsuranceClaim(int customerId, float amount, string detail)
-        {
-            this.CustomerId = customerId;
-            this.DateSubmitted = DateTime.Now;
-            this.Amount = amount;
-            this.Detail = detail;
-            this.Status = "Pending";
-        }
-        public InsuranceClaim(int id, int customerId, DateTime dateCreated, float amount, string detail,string status, int reviewerID)
-        {
-            this.Id = id;
-            this.CustomerId = customerId;
-            this.DateSubmitted = dateCreated;
-            this.Amount = amount;
-            this.Detail = detail;
-            this.Status = status;
-            this.ReviewerID = reviewerID;
-        }
     }
 }
