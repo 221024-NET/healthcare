@@ -7,6 +7,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var connValue = builder.Configuration.GetValue<string>("ConnectionStrings:Azure");
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
