@@ -50,6 +50,8 @@ namespace HealthcareAPI.Controllers
             {
                 return BadRequest(); 
             }
+
+           //Encrypt password here
             
             _context.Employees.Add(employee);
             await _context.SaveChangesAsync(); 

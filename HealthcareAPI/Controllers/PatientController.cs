@@ -82,6 +82,10 @@ public class PatientController : ControllerBase
         {
             return Problem("Entity set 'Context.Patients'  is null.");
         }
+
+        //Encrypt password here
+
+
         _context.Patients.Add(patient);
         await _context.SaveChangesAsync();
 
