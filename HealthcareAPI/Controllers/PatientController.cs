@@ -92,6 +92,8 @@ public class PatientController : ControllerBase
         return CreatedAtAction(nameof(GetPatient), new { id = patient.patient_id }, patient);
     }
 
+   
+
 
     private bool PatientExists(int id)
     {
