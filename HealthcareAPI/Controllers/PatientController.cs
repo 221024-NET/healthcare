@@ -92,8 +92,26 @@ public class PatientController : ControllerBase
         return CreatedAtAction(nameof(GetPatient), new { id = patient.patient_id }, patient);
     }
 
+<<<<<<< HEAD
    
 
+=======
+    [HttpPost("LogIn")]
+    public ActionResult<Patient> LogInPatient(Patient patient)
+    {
+        if (patient == null)
+        {
+            return BadRequest();
+        }
+
+        var t = _context.Patients.Where(pt => pt.email == patient.email && pt.password == patient.password).FirstOrDefault();
+        if (t == null)
+        {
+            return BadRequest();
+        }
+        return t;
+    }
+>>>>>>> 7036e1a0fa0539305f56c54cb0f25fa9778db0fc
 
     private bool PatientExists(int id)
     {

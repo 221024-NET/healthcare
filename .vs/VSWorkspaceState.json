@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\HealthcareAPI"
+    "\\HealthcareAPI",
+    "\\HealthcareAPI\\Controllers"
   ],
-  "SelectedNode": "\\HealthcareAPI\\Program.cs",
+  "SelectedNode": "\\HealthcareAPI\\Controllers\\EmployeeController.cs",
   "PreviewInSolutionExplorer": false
 }

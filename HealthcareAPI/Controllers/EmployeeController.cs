@@ -58,6 +58,19 @@ namespace HealthcareAPI.Controllers
 
             return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.employee_id }, employee);
         }
+        [HttpPost ("LogIn")]
+        public ActionResult<Employee> LogInEmployee(Employee employee) 
+        {
+            if (employee == null) {
+                return BadRequest();
+            }
+
+            var t= _context.Employees.Where(em => em.email == employee.email && em.password == employee.password).FirstOrDefault();
+            if (t == null) {
+                return BadRequest();
+            }
+            return t;
+        }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEmployee (int id)
