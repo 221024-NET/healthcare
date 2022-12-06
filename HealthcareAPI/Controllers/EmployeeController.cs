@@ -58,6 +58,20 @@ namespace HealthcareAPI.Controllers
 
             return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.employee_id }, employee);
         }
+        [HttpPost ("LogIn")]
+        public ActionResult<Employee> LogInEmployee(Employee employee) 
+        {
+            if (employee == null) {
+                return BadRequest();
+            }
+
+            var t= _context.Employees.Where(em => em.email == employee.email && em.password == employee.password).FirstOrDefault();
+            if (t == null) {
+                Console.WriteLine("Not here");
+                return BadRequest();
+            }
+            return t;
+        }
 
         private bool EmployeeExists(int id)
         {
