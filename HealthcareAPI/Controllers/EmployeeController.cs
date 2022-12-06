@@ -67,7 +67,6 @@ namespace HealthcareAPI.Controllers
 
             var t= _context.Employees.Where(em => em.email == employee.email && em.password == employee.password).FirstOrDefault();
             if (t == null) {
-                Console.WriteLine("Not here");
                 return BadRequest();
             }
             return t;
