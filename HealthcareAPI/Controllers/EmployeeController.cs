@@ -67,7 +67,7 @@ namespace HealthcareAPI.Controllers
             if (employee == null) {
                 return BadRequest();
             }
-
+            employee.password = EncryptPwd(employee.password);
             var t= _context.Employees.Where(em => em.email == employee.email && em.password == employee.password).FirstOrDefault();
             if (t == null) {
                 return BadRequest();

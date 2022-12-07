@@ -101,7 +101,7 @@ public class PatientController : ControllerBase
         {
             return BadRequest();
         }
-
+        patient.password = EncryptPwd(patient.password);
         var t = _context.Patients.Where(pt => pt.email == patient.email && pt.password == patient.password).FirstOrDefault();
         if (t == null)
         {
