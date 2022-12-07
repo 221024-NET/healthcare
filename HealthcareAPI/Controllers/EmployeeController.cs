@@ -21,7 +21,7 @@ namespace HealthcareAPI.Controllers
             _context = context;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("/employee/{id}")]
         public async Task<ActionResult<Employee>> GetEmployeeById(int id)
         {
             if (_context.Employees == null)
@@ -39,7 +39,7 @@ namespace HealthcareAPI.Controllers
             return employee;
         }
 
-        [HttpPost]
+        [HttpPost("/employee")]
         public async Task<ActionResult<Employee>> CreateNewEmployee(Employee employee)
         {
            if(employee == null)
@@ -58,7 +58,7 @@ namespace HealthcareAPI.Controllers
 
             return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.employee_id }, employee);
         }
-        [HttpPost ("LogIn")]
+        [HttpPost ("/employee/LogIn")]
         public ActionResult<Employee> LogInEmployee(Employee employee) 
         {
             if (employee == null) {
@@ -72,7 +72,7 @@ namespace HealthcareAPI.Controllers
             return t;
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("/employee/{id}")]
         public async Task<IActionResult> DeleteEmployee (int id)
         {
             if (_context.Employees == null)
