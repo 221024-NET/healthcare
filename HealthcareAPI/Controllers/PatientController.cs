@@ -16,7 +16,7 @@ public class PatientController : ControllerBase
     }
 
 
-    [HttpGet]
+    [HttpGet("/paitents")]
     public async Task<ActionResult<IEnumerable<Patient>>> GetTodoItems()
     {
         if (_context.Patients == null)
@@ -26,7 +26,7 @@ public class PatientController : ControllerBase
         return await _context.Patients.ToListAsync();
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("/paitents/{id}")]
     public async Task<ActionResult<Patient>> GetPatient(int id)
     {
         if (_context.Patients == null)
@@ -46,7 +46,7 @@ public class PatientController : ControllerBase
 
 
 
-    [HttpPut]
+    [HttpPut("/paitents")]
     public async Task<IActionResult> PutInsuranceClaim(int id, Patient patient)
     {
         if (id != patient.patient_id)
@@ -75,7 +75,7 @@ public class PatientController : ControllerBase
 
     }
 
-    [HttpPost]
+    [HttpPost("/paitents")]
     public async Task<ActionResult<Patient>> PostPatient(Patient patient)
     {
         if (_context.Patients == null)
@@ -92,7 +92,11 @@ public class PatientController : ControllerBase
         return CreatedAtAction(nameof(GetPatient), new { id = patient.patient_id }, patient);
     }
 
-    [HttpPost("LogIn")]
+//<<<<<<< HEAD
+   
+
+//=======
+    [HttpPost("paitents/LogIn")]
     public ActionResult<Patient> LogInPatient(Patient patient)
     {
         if (patient == null)
@@ -107,6 +111,7 @@ public class PatientController : ControllerBase
         }
         return t;
     }
+//>>>>>>> 7036e1a0fa0539305f56c54cb0f25fa9778db0fc
 
     private bool PatientExists(int id)
     {
