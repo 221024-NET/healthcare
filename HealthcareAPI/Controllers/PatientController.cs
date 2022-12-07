@@ -92,10 +92,6 @@ public class PatientController : ControllerBase
         return CreatedAtAction(nameof(GetPatient), new { id = patient.patient_id }, patient);
     }
 
-<<<<<<< HEAD
-   
-
-=======
     [HttpPost("LogIn")]
     public ActionResult<Patient> LogInPatient(Patient patient)
     {
@@ -111,7 +107,6 @@ public class PatientController : ControllerBase
         }
         return t;
     }
->>>>>>> 7036e1a0fa0539305f56c54cb0f25fa9778db0fc
 
     private bool PatientExists(int id)
     {
