@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HealthcareAPI.Models;
+using System.Security.Cryptography;
 
 namespace HealthcareAPI.Controllers;
 
@@ -84,6 +85,7 @@ public class PatientController : ControllerBase
         }
 
         //Encrypt password here
+        patient.password = EncryptPwd(patient.password);
 
 
         _context.Patients.Add(patient);
@@ -92,11 +94,7 @@ public class PatientController : ControllerBase
         return CreatedAtAction(nameof(GetPatient), new { id = patient.patient_id }, patient);
     }
 
-//<<<<<<< HEAD
-   
-
-//=======
-    [HttpPost("paitents/LogIn")]
+    [HttpPost("/patients/LogIn")]
     public ActionResult<Patient> LogInPatient(Patient patient)
     {
         if (patient == null)
@@ -111,11 +109,25 @@ public class PatientController : ControllerBase
         }
         return t;
     }
-//>>>>>>> 7036e1a0fa0539305f56c54cb0f25fa9778db0fc
 
     private bool PatientExists(int id)
     {
         return (_context.Patients?.Any(e => e.patient_id == id)).GetValueOrDefault();
+    }
+
+    private string EncryptPwd(string password)
+    {
+        SHA256 myHash = SHA256.Create();
+        string salt = "wim";
+        string combined = salt + password;
+
+        byte[] bytes = new byte[combined.Length * sizeof(char)];
+        System.Buffer.BlockCopy(combined.ToCharArray(), 0, bytes, 0, bytes.Length);
+
+        byte[] hashvalue = myHash.ComputeHash(bytes);
+        string hash = BitConverter.ToString(hashvalue).Replace("-", "");
+
+        return hash;
     }
 
 }

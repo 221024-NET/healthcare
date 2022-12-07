@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HealthcareAPI.Models;
+using System.Security.Cryptography;
 
 namespace HealthcareAPI.Controllers
 {
@@ -51,7 +52,9 @@ namespace HealthcareAPI.Controllers
                 return BadRequest(); 
             }
 
-           //Encrypt password here
+            //Encrypt password here
+
+            employee.password = EncryptPwd(employee.password);
             
             _context.Employees.Add(employee);
             await _context.SaveChangesAsync(); 
@@ -93,6 +96,21 @@ namespace HealthcareAPI.Controllers
         private bool EmployeeExists(int id)
         {
             return (_context.Employees?.Any(e => e.employee_id == id)).GetValueOrDefault();
+        }
+
+        private string EncryptPwd(string password)
+        {
+            SHA256 myHash = SHA256.Create();
+            string salt = "wim";
+            string combined = salt + password;
+
+            byte[] bytes = new byte[combined.Length * sizeof(char)];
+            System.Buffer.BlockCopy(combined.ToCharArray(), 0, bytes, 0, bytes.Length);
+
+            byte[] hashvalue = myHash.ComputeHash(bytes);
+            string hash = BitConverter.ToString(hashvalue).Replace("-", "");
+
+            return hash;
         }
 
 
