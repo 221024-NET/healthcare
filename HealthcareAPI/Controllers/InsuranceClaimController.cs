@@ -76,7 +76,7 @@ public class InsuranceClaimController : ControllerBase
     }
 
     [HttpPost("/claim/new")]
-    public async Task<ActionResult<InsuranceClaim>> PostInsuranceClaim(InsuranceClaim newClaim)
+    public async Task<ActionResult<Bill>> PostInsuranceClaim(Bill newClaim)
     {
         if (_context.Claims == null)
         {
