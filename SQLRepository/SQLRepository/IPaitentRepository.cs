@@ -1,4 +1,5 @@
-﻿using DataObjects;
+﻿
+using HealthcareAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,9 +10,9 @@ namespace SQLRepository
 {
     internal interface IPaitentRepository
     {
-        public Paitent CreateNewPaitent(Paitent paitent, string conn);
-        public Paitent GetPaitentByID(int id, string conn);
-        public IEnumerable<Paitent> GetAllPaitents(string conn);
-        public Paitent LogInPaitent(Paitent patient, string conn);
+        public Patient CreateNewPaitent(Patient paitent, string conn);
+        public Patient GetPaitentByID(int id, string conn);
+        public IEnumerable<Patient> GetAllPaitents(string conn);
+        public Patient LogInPaitent(Patient patient, string conn);
     }
 }
