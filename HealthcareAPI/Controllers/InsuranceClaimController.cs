@@ -75,21 +75,18 @@ public class InsuranceClaimController : ControllerBase
 
     }
 
+    [HttpPost("/claim/new")]
+    public async Task<ActionResult<InsuranceClaim>> PostInsuranceClaim(InsuranceClaim newClaim)
+    {
+        if (_context.Claims == null)
+        {
+            return Problem("Entity set 'Context.Claims' is null.");
+        }
+        _context.Claims.Add(newClaim);
+        await _context.SaveChangesAsync();
 
-    //What is this one supposed to do? it still has ToDo stuff from copy/pasting
-    //[HttpPost]
-    //public async Task<ActionResult<InsuranceClaim>> PostTodoItem(InsuranceClaim insClaim)
-    //{
-    //    if (_context.Claims == null)
-    //    {
-    //        return Problem("Entity set 'TodoContext.TodoItems'  is null.");
-    //    }
-    //    _context.Claims.Add(insClaim);
-    //    await _context.SaveChangesAsync();
-
-    //    return CreatedAtAction(nameof(GetClaim), new { id = insClaim.id }, insClaim);
-    //}
-
+        return CreatedAtAction(nameof(GetClaim), new { id = newClaim.id }, newClaim);
+    }
 
     private bool ClaimExists(int id)
     {
