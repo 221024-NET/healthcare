@@ -14,6 +14,16 @@ var connValue = builder.Configuration["ConnectionStrings:Azure"];
 //builder.Services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase(connValue));
 builder.Services.AddDbContext<Context>(opt => opt.UseSqlServer(connValue));
 
+var healthcareAPI = "_healthcareAPI";
+builder.Services.AddCors(options => {
+    options.AddPolicy(name: healthcareAPI,
+    policy => {
+        policy.WithOrigins("http://localhost:4200") //4200 is the default when running angular
+.AllowAnyHeader()
+    .AllowAnyMethod();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,5 +38,11 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+
+
+app.UseCors(healthcareAPI);
+
+
 
 app.Run();

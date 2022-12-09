@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using DataObjects;
+﻿using HealthcareAPI.Models;
 
 namespace SQLRepository
 {
@@ -51,7 +45,7 @@ namespace SQLRepository
         ///     Database Connection string
         /// </param>
         /// <returns></returns>
-        public IEnumerable<Bill> GetBillsByPaitent(Paitent paitent, string conn)
+        public IEnumerable<Bill> GetBillsByPaitent(Patient paitent, string conn)
         {
 
         }

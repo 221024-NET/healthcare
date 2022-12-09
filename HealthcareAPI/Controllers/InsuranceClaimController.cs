@@ -17,7 +17,7 @@ public class InsuranceClaimController : ControllerBase
 
 
     [HttpGet("/claims")]
-    public async Task<ActionResult<IEnumerable<InsuranceClaim>>> GetTodoItems()
+    public async Task<ActionResult<IEnumerable<Bill>>> GetTodoItems()
     {
         if (_context.Claims == null)
         {
@@ -27,7 +27,7 @@ public class InsuranceClaimController : ControllerBase
     }
 
     [HttpGet("/claim/{id}")]
-    public async Task<ActionResult<InsuranceClaim>> GetClaim(int id)
+    public async Task<ActionResult<Bill>> GetClaim(int id)
     {
         if (_context.Claims == null)
         {
@@ -47,7 +47,7 @@ public class InsuranceClaimController : ControllerBase
 
 
     [HttpPut("/claim")]
-    public async Task<IActionResult> PutInsuranceClaim(int id, InsuranceClaim insClaim)
+    public async Task<IActionResult> PutInsuranceClaim(int id, Bill insClaim)
     {
         if (id != insClaim.id)
         {

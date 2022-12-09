@@ -1,10 +1,11 @@
-﻿using System;
+﻿using HealthcareAPI.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using DataObjects;
+
 
 namespace SQLRepository
 {
@@ -33,7 +34,7 @@ namespace SQLRepository
         /// <returns>
         ///     A Patient object with the same field values as the new Paitent
         /// </returns>
-        public Paitent CreateNewPaitent(Paitent paitent, string conn)
+        public Patient CreateNewPaitent(Patient paitent, string conn)
         {
 
         }
@@ -51,7 +52,7 @@ namespace SQLRepository
         /// <returns>
         ///     The Patient oblect with the corrisponding ID
         /// </returns>
-        public Paitent GetPaitentByID(int id, string conn)
+        public Patient GetPaitentByID(int id, string conn)
         {
 
         }
@@ -65,12 +66,12 @@ namespace SQLRepository
         /// <returns>
         ///     A List of all Paitents
         /// </returns>
-        public IEnumerable<Paitent> GetAllPaitents(string conn)
+        public IEnumerable<Patient> GetAllPaitents(string conn)
         {
 
         }
 
-        public Paitent LogInPaitent (Paitent patient, string conn)
+        public Patient LogInPaitent (Patient patient, string conn)
         {
 
         }
