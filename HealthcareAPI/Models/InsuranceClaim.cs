@@ -14,6 +14,5 @@ namespace HealthcareAPI.Models
         public string details { get; set; }
         public string status { get; set; }
         public int? reviewed_by { get; set; }
-
     }
 }
