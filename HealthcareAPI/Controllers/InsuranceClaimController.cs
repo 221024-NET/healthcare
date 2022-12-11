@@ -47,14 +47,14 @@ public class InsuranceClaimController : ControllerBase
 
 
     [HttpPut("/claim")]
-    public async Task<IActionResult> PutInsuranceClaim(int id, Bill insClaim)
+    public async Task<IActionResult> PutInsuranceClaim( Bill insClaim)
     {
-        if (id != insClaim.id)
+        if (_context.Claims ==null)
         {
             return BadRequest();
         }
 
-        _context.Entry(insClaim).State = EntityState.Modified;
+        _context.Claims.Entry(insClaim).State = EntityState.Modified;
 
         try
         {
@@ -76,7 +76,7 @@ public class InsuranceClaimController : ControllerBase
     }
 
     [HttpPost("/claim/new")]
-    public async Task<ActionResult<InsuranceClaim>> PostInsuranceClaim(InsuranceClaim newClaim)
+    public async Task<ActionResult<Bill>> PostInsuranceClaim(Bill newClaim)
     {
         if (_context.Claims == null)
         {
