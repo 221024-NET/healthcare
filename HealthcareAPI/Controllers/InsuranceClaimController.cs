@@ -62,7 +62,7 @@ public class InsuranceClaimController : ControllerBase
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!ClaimExists(id))
+            if (!ClaimExists(insClaim.id))
             {
                 return NotFound();
             }
