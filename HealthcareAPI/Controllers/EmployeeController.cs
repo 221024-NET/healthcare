@@ -76,16 +76,16 @@ namespace HealthcareAPI.Controllers
         }
 
         [HttpPut("/employee/{id}/newPassword")]
-        public async Task<IActionResult> resetPasssword(int id, Patient patient)
+        public async Task<IActionResult> resetPasssword(int id, Employee employee)
         {
-            if (id != patient.patient_id)
+            if (id != employee.employee_id)
             {
                 return BadRequest();
             }
 
-            patient.password = EncryptPwd(patient.password);
+            employee.password = EncryptPwd(employee.password);
 
-            _context.Entry(patient).State = EntityState.Modified;
+            _context.Entry(employee).State = EntityState.Modified;
 
             try
             {
