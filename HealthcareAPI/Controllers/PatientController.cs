@@ -76,6 +76,37 @@ public class PatientController : ControllerBase
 
     }
 
+    [HttpPut("/paitents/{id}/newPassword")]
+    public async Task<IActionResult> resetPasssword(int id, Patient patient)
+    {
+        if (id != patient.patient_id)
+        {
+            return BadRequest();
+        }
+
+        patient.password = EncryptPwd(patient.password);
+
+        _context.Entry(patient).State = EntityState.Modified;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!PatientExists(id))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+        return NoContent();
+
+    }
+
     [HttpPost("/paitents")]
     public async Task<ActionResult<Patient>> PostPatient(Patient patient)
     {

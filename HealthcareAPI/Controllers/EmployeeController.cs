@@ -75,6 +75,37 @@ namespace HealthcareAPI.Controllers
             return t;
         }
 
+        [HttpPut("/employee/{id}/newPassword")]
+        public async Task<IActionResult> resetPasssword(int id, Patient patient)
+        {
+            if (id != patient.patient_id)
+            {
+                return BadRequest();
+            }
+
+            patient.password = EncryptPwd(patient.password);
+
+            _context.Entry(patient).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!EmployeeExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return NoContent();
+
+        }
+
         [HttpDelete("/employee/{id}")]
         public async Task<IActionResult> DeleteEmployee (int id)
         {
