@@ -76,7 +76,7 @@ public class PatientController : ControllerBase
 
     }
 
-    [HttpPut("/paitents/{id}/newPassword")]
+    [HttpPut("/paitents/newPassword/{id}")]
     public async Task<IActionResult> resetPasssword(int id, Patient patient)
     {
         if (id != patient.patient_id)

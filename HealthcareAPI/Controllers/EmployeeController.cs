@@ -75,7 +75,7 @@ namespace HealthcareAPI.Controllers
             return t;
         }
 
-        [HttpPut("/employee/{id}/newPassword")]
+        [HttpPut("/employee/newPassword/{id}")]
         public async Task<IActionResult> resetPasssword(int id, Employee employee)
         {
             if (id != employee.employee_id)
