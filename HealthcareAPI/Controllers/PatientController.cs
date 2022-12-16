@@ -141,6 +141,36 @@ public class PatientController : ControllerBase
         return t;
     }
 
+    [HttpPut("/patients/updateProfile/{id}")]
+    public async Task<ActionResult<Patient>> updateProfile(int id, Patient patient)
+    {
+        
+
+        if (id != patient.patient_id)
+        {
+            return BadRequest();
+        }
+        _context.Entry(patient).State = EntityState.Modified;
+
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!PatientExists(id))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
+        }
+        return patient;
+
+    }
+
     private bool PatientExists(int id)
     {
         return (_context.Patients?.Any(e => e.patient_id == id)).GetValueOrDefault();
