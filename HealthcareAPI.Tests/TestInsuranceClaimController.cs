@@ -22,7 +22,7 @@ namespace HealthcareAPI.Tests
 
             var result = controller.GetAllClaims();
 
-            Assert.IsType<Task<ActionResult<IEnumerable<Bill>>>>(result);
+            Assert.IsType<Task<ActionResult<IEnumerable<InsuranceClaim>>>>(result);
         }
 
         [Fact]
@@ -35,7 +35,7 @@ namespace HealthcareAPI.Tests
 
             var result = controller.GetClaim(intended_id);
 
-            Assert.IsType<Task<ActionResult<Bill>>>(result);
+            Assert.IsType<Task<ActionResult<InsuranceClaim>>>(result);
         }
 
         [Fact]
@@ -44,7 +44,7 @@ namespace HealthcareAPI.Tests
             var mock = new Mock<IContext>();
             mock.Setup(m => m.Claims.AsQueryable()).Returns(new MockClaimSet());
             var controller = new InsuranceClaimController(mock.Object);
-            Bill upClaim = new Bill();
+            InsuranceClaim upClaim = new InsuranceClaim();
             upClaim.id = 1;
             upClaim.amount = 150;
 
@@ -59,11 +59,11 @@ namespace HealthcareAPI.Tests
             var mock = new Mock<IContext>();
             mock.Setup(m => m.Claims.AsQueryable()).Returns(new MockClaimSet());
             var controller = new InsuranceClaimController(mock.Object);
-            Bill upClaim = new Bill();
+            InsuranceClaim upClaim = new InsuranceClaim();
 
             var result = controller.PostInsuranceClaim(upClaim);
 
-            Assert.IsType<Task<ActionResult<Bill>>>(result);
+            Assert.IsType<Task<ActionResult<InsuranceClaim>>>(result);
         }
     }
 }

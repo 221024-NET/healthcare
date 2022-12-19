@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace HealthcareAPI.Tests.Models
 {
-    public class MockClaimSet : MockDbSet<Bill>
+    public class MockClaimSet : MockDbSet<InsuranceClaim>
     {
-        List<Bill> claims = new List<Bill>();
+        List<InsuranceClaim> claims = new List<InsuranceClaim>();
         public MockClaimSet()
         {
-            claims.Add(new Bill()
+            claims.Add(new InsuranceClaim()
             {
                 id = 1,
                 customer_id = 1,
@@ -21,7 +21,7 @@ namespace HealthcareAPI.Tests.Models
                 details = "test1",
                 status = "Pending"
             });
-            claims.Add(new Bill()
+            claims.Add(new InsuranceClaim()
             {
                 id = 2,
                 customer_id = 1,
@@ -30,7 +30,7 @@ namespace HealthcareAPI.Tests.Models
                 details = "test2",
                 status = "Accepted"
             });
-            claims.Add(new Bill()
+            claims.Add(new InsuranceClaim()
             {
                 id = 3,
                 customer_id = 2,

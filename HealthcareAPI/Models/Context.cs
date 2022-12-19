@@ -9,7 +9,7 @@ namespace HealthcareAPI.Models
             : base(options)
         {
         }
-        public DbSet<Bill> Claims { get; set; } = null!;
+        public DbSet<InsuranceClaim> Claims { get; set; } = null!;
 
         public DbSet<Employee> Employees { get; set; } = null!;
         public DbSet<Patient> Patients { get; set; } = null!;
