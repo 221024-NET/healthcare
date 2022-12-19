@@ -17,7 +17,7 @@ public class PatientController : ControllerBase
     }
 
 
-    [HttpGet("/paitents")]
+    [HttpGet("/patients")]
     public async Task<ActionResult<IEnumerable<Patient>>> GetTodoItems()
     {
         if (_context.Patients == null)
@@ -27,7 +27,7 @@ public class PatientController : ControllerBase
         return await _context.Patients.ToListAsync();
     }
 
-    [HttpGet("/paitents/{id}")]
+    [HttpGet("/patients/{id}")]
     public async Task<ActionResult<Patient>> GetPatient(int id)
     {
         if (_context.Patients == null)
@@ -47,7 +47,7 @@ public class PatientController : ControllerBase
 
 
 
-    [HttpPut("/paitents")]
+    [HttpPut("/patients")]
     public async Task<IActionResult> PutInsuranceClaim(int id, Patient patient)
     {
         if (id != patient.patient_id)
@@ -76,7 +76,7 @@ public class PatientController : ControllerBase
 
     }
 
-    [HttpPut("/paitents/newPassword/{id}")]
+    [HttpPut("/patients/newPassword/{id}")]
     public async Task<IActionResult> resetPasssword(int id, Patient patient)
     {
         if (id != patient.patient_id)
@@ -107,7 +107,7 @@ public class PatientController : ControllerBase
 
     }
 
-    [HttpPost("/paitents")]
+    [HttpPost("/patients")]
     public async Task<ActionResult<Patient>> PostPatient(Patient patient)
     {
         if (_context.Patients == null)

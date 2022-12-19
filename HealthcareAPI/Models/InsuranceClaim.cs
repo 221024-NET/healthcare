@@ -4,7 +4,7 @@ using System.Text;
 
 namespace HealthcareAPI.Models
 {
-    public class Bill
+    public class InsuranceClaim
     {
    
         public int id { get; set; }
