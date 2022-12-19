@@ -15,9 +15,9 @@ namespace HealthcareAPI.Controllers
 
     public class EmployeeController : ControllerBase
     {
-        private readonly Context _context;
+        private readonly IContext _context;
 
-        public EmployeeController(Context context)
+        public EmployeeController(IContext context)
         {
             _context = context;
         }
@@ -57,7 +57,7 @@ namespace HealthcareAPI.Controllers
             employee.password = EncryptPwd(employee.password);
             
             _context.Employees.Add(employee);
-            await _context.SaveChangesAsync(); 
+            await _context.CommitChangesAsync();
 
             return CreatedAtAction(nameof(GetEmployeeById), new { id = employee.employee_id }, employee);
         }
@@ -85,11 +85,11 @@ namespace HealthcareAPI.Controllers
 
             employee.password = EncryptPwd(employee.password);
 
-            _context.Entry(employee).State = EntityState.Modified;
+            _context.DenoteEmployeeModified(employee);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _context.CommitChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -113,11 +113,11 @@ namespace HealthcareAPI.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(employee).State = EntityState.Modified;
+            _context.DenoteEmployeeModified(employee);
 
             try
             {
-                await _context.SaveChangesAsync();
+                await _context.CommitChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -148,7 +148,7 @@ namespace HealthcareAPI.Controllers
             }
 
             _context.Employees.Remove(employee);
-            await _context.SaveChangesAsync();
+            await _context.CommitChangesAsync();
             return NoContent();
         }
 

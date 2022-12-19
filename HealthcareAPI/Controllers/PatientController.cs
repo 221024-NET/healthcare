@@ -9,16 +9,16 @@ namespace HealthcareAPI.Controllers;
 [Route("api/[controller]")]
 public class PatientController : ControllerBase
 {
-    private readonly Context _context;
+    private readonly IContext _context;
 
-    public PatientController(Context context)
+    public PatientController(IContext context)
     {
         _context = context;
     }
 
 
-    [HttpGet("/paitents")]
-    public async Task<ActionResult<IEnumerable<Patient>>> GetTodoItems()
+    [HttpGet("/patients")]
+    public async Task<ActionResult<IEnumerable<Patient>>> GetAllPatients()
     {
         if (_context.Patients == null)
         {
@@ -27,7 +27,7 @@ public class PatientController : ControllerBase
         return await _context.Patients.ToListAsync();
     }
 
-    [HttpGet("/paitents/{id}")]
+    [HttpGet("/patients/{id}")]
     public async Task<ActionResult<Patient>> GetPatient(int id)
     {
         if (_context.Patients == null)
@@ -47,19 +47,19 @@ public class PatientController : ControllerBase
 
 
 
-    [HttpPut("/paitents")]
-    public async Task<IActionResult> PutInsuranceClaim(int id, Patient patient)
+    [HttpPut("/patients")]
+    public async Task<IActionResult> PutPatient(int id, Patient patient)
     {
         if (id != patient.patient_id)
         {
             return BadRequest();
         }
 
-        _context.Entry(patient).State = EntityState.Modified;
+        _context.DenotePatientModified(patient);
 
         try
         {
-            await _context.SaveChangesAsync();
+            await _context.CommitChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
         {
@@ -76,7 +76,7 @@ public class PatientController : ControllerBase
 
     }
 
-    [HttpPut("/paitents/newPassword/{id}")]
+    [HttpPut("/patients/newPassword/{id}")]
     public async Task<IActionResult> resetPasssword(int id, Patient patient)
     {
         if (id != patient.patient_id)
@@ -86,11 +86,11 @@ public class PatientController : ControllerBase
 
         patient.password = EncryptPwd(patient.password);
 
-        _context.Entry(patient).State = EntityState.Modified;
+        _context.DenotePatientModified(patient);
 
         try
         {
-            await _context.SaveChangesAsync();
+            await _context.CommitChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
         {
@@ -107,7 +107,7 @@ public class PatientController : ControllerBase
 
     }
 
-    [HttpPost("/paitents")]
+    [HttpPost("/patients")]
     public async Task<ActionResult<Patient>> PostPatient(Patient patient)
     {
         if (_context.Patients == null)
@@ -120,7 +120,7 @@ public class PatientController : ControllerBase
 
 
         _context.Patients.Add(patient);
-        await _context.SaveChangesAsync();
+        await _context.CommitChangesAsync();
 
         return CreatedAtAction(nameof(GetPatient), new { id = patient.patient_id }, patient);
     }
@@ -150,11 +150,11 @@ public class PatientController : ControllerBase
         {
             return BadRequest();
         }
-        _context.Entry(patient).State = EntityState.Modified;
+        _context.DenotePatientModified(patient);
 
         try
         {
-            await _context.SaveChangesAsync();
+            await _context.CommitChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
         {

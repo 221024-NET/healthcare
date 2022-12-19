@@ -8,16 +8,16 @@ namespace HealthcareAPI.Controllers;
 [Route("api/[controller]")]
 public class InsuranceClaimController : ControllerBase
 {
-    private readonly Context _context;
+    private readonly IContext _context;
 
-    public InsuranceClaimController(Context context)
+    public InsuranceClaimController(IContext context)
     {
         _context = context;
     }
 
 
     [HttpGet("/claims")]
-    public async Task<ActionResult<IEnumerable<Bill>>> GetTodoItems()
+    public async Task<ActionResult<IEnumerable<Bill>>> GetAllClaims()
     {
         if (_context.Claims == null)
         {
@@ -58,7 +58,7 @@ public class InsuranceClaimController : ControllerBase
 
         try
         {
-            await _context.SaveChangesAsync();
+            await _context.CommitChangesAsync();
         }
         catch (DbUpdateConcurrencyException)
         {
@@ -83,7 +83,7 @@ public class InsuranceClaimController : ControllerBase
             return Problem("Entity set 'Context.Claims' is null.");
         }
         _context.Claims.Add(newClaim);
-        await _context.SaveChangesAsync();
+        await _context.CommitChangesAsync();
 
         return CreatedAtAction(nameof(GetClaim), new { id = newClaim.id }, newClaim);
     }

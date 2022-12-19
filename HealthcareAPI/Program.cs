@@ -14,6 +14,8 @@ var connValue = builder.Configuration["ConnectionStrings:Azure"];
 //builder.Services.AddDbContext<Context>(opt => opt.UseInMemoryDatabase(connValue));
 builder.Services.AddDbContext<Context>(opt => opt.UseSqlServer(connValue));
 
+builder.Services.AddScoped<IContext>(provider => provider.GetService<Context>());
+
 var healthcareAPI = "_healthcareAPI";
 builder.Services.AddCors(options => {
     options.AddPolicy(name: healthcareAPI,
