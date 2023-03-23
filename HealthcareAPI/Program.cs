@@ -20,7 +20,8 @@ var healthcareAPI = "_healthcareAPI";
 builder.Services.AddCors(options => {
     options.AddPolicy(name: healthcareAPI,
     policy => {
-        policy.WithOrigins("http://localhost:4200") //4200 is the default when running angular
+        policy.WithOrigins("http://localhost:3000") //4200 is the default when running angular
+                                                    //3000 is for React
     .AllowAnyHeader()
     .AllowAnyMethod();
     });

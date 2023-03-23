@@ -47,34 +47,34 @@ public class PatientController : ControllerBase
 
 
 
-    [HttpPut("/patients")]
-    public async Task<IActionResult> PutPatient(int id, Patient patient)
-    {
-        if (id != patient.patient_id)
-        {
-            return BadRequest();
-        }
+    //[HttpPut("/patients")]
+    //public async Task<IActionResult> PutPatient(int id, Patient patient)
+    //{
+    //    if (id != patient.patient_id)
+    //    {
+    //        return BadRequest();
+    //    }
 
-        _context.DenotePatientModified(patient);
+    //    _context.DenotePatientModified(patient);
 
-        try
-        {
-            await _context.CommitChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!PatientExists(id))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
-        return NoContent();
+    //    try
+    //    {
+    //        await _context.CommitChangesAsync();
+    //    }
+    //    catch (DbUpdateConcurrencyException)
+    //    {
+    //        if (!PatientExists(id))
+    //        {
+    //            return NotFound();
+    //        }
+    //        else
+    //        {
+    //            throw;
+    //        }
+    //    }
+    //    return NoContent();
 
-    }
+    //}
 
     [HttpPut("/patients/newPassword/{id}")]
     public async Task<IActionResult> resetPasssword(int id, Patient patient)
@@ -84,7 +84,7 @@ public class PatientController : ControllerBase
             return BadRequest();
         }
 
-        patient.password = EncryptPwd(patient.password);
+        //patient.password = EncryptPwd(patient.password);
 
         _context.DenotePatientModified(patient);
 
@@ -116,7 +116,7 @@ public class PatientController : ControllerBase
         }
 
         //Encrypt password here
-        patient.password = EncryptPwd(patient.password);
+        //patient.password = EncryptPwd(patient.password);
 
 
         _context.Patients.Add(patient);
@@ -132,7 +132,7 @@ public class PatientController : ControllerBase
         {
             return BadRequest();
         }
-        patient.password = EncryptPwd(patient.password);
+        //patient.password = EncryptPwd(patient.password);
         var t = _context.Patients.Where(pt => pt.email == patient.email && pt.password == patient.password).FirstOrDefault();
         if (t == null)
         {
@@ -141,54 +141,54 @@ public class PatientController : ControllerBase
         return t;
     }
 
-    [HttpPut("/patients/updateProfile/{id}")]
-    public async Task<ActionResult<Patient>> updateProfile(int id, Patient patient)
-    {
+    //[HttpPut("/patients/updateProfile/{id}")]
+    //public async Task<ActionResult<Patient>> updateProfile(int id, Patient patient)
+    //{
         
 
-        if (id != patient.patient_id)
-        {
-            return BadRequest();
-        }
-        _context.DenotePatientModified(patient);
+    //    if (id != patient.patient_id)
+    //    {
+    //        return BadRequest();
+    //    }
+    //    _context.DenotePatientModified(patient);
 
-        try
-        {
-            await _context.CommitChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!PatientExists(id))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
-        return patient;
+    //    try
+    //    {
+    //        await _context.CommitChangesAsync();
+    //    }
+    //    catch (DbUpdateConcurrencyException)
+    //    {
+    //        if (!PatientExists(id))
+    //        {
+    //            return NotFound();
+    //        }
+    //        else
+    //        {
+    //            throw;
+    //        }
+    //    }
+    //    return patient;
 
-    }
+    //}
 
     private bool PatientExists(int id)
     {
         return (_context.Patients?.Any(e => e.patient_id == id)).GetValueOrDefault();
     }
 
-    private string EncryptPwd(string password)
-    {
-        SHA256 myHash = SHA256.Create();
-        string salt = "wim";
-        string combined = salt + password;
+    //private string EncryptPwd(string password)
+    //{
+    //    SHA256 myHash = SHA256.Create();
+    //    string salt = "wim";
+    //    string combined = salt + password;
 
-        byte[] bytes = new byte[combined.Length * sizeof(char)];
-        System.Buffer.BlockCopy(combined.ToCharArray(), 0, bytes, 0, bytes.Length);
+    //    byte[] bytes = new byte[combined.Length * sizeof(char)];
+    //    System.Buffer.BlockCopy(combined.ToCharArray(), 0, bytes, 0, bytes.Length);
 
-        byte[] hashvalue = myHash.ComputeHash(bytes);
-        string hash = BitConverter.ToString(hashvalue).Replace("-", "");
+    //    byte[] hashvalue = myHash.ComputeHash(bytes);
+    //    string hash = BitConverter.ToString(hashvalue).Replace("-", "");
 
-        return hash;
-    }
+    //    return hash;
+    //}
 
 }

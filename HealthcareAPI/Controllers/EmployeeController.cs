@@ -40,13 +40,24 @@ namespace HealthcareAPI.Controllers
             return employee;
         }
 
+        [HttpGet("/employees")]
+        public async Task<ActionResult<IEnumerable<Employee>>> GetAllEmployees()
+        {
+            if (_context.Employees == null)
+            {
+                return NotFound();
+            }
+
+            return await _context.Employees.ToListAsync();
+        }
+
         [HttpPost("/employee")]
         public async Task<ActionResult<Employee>> CreateNewEmployee(Employee employee)
         {
            if(employee == null)
-            {
+           {
                 return BadRequest();
-            }
+           }
            if(EmployeeExists(employee.employee_id))
             {
                 return BadRequest(); 
@@ -54,7 +65,7 @@ namespace HealthcareAPI.Controllers
 
             //Encrypt password here
 
-            employee.password = EncryptPwd(employee.password);
+            //employee.password = EncryptPwd(employee.password);
             
             _context.Employees.Add(employee);
             await _context.CommitChangesAsync();
@@ -67,7 +78,7 @@ namespace HealthcareAPI.Controllers
             if (employee == null) {
                 return BadRequest();
             }
-            employee.password = EncryptPwd(employee.password);
+            //employee.password = EncryptPwd(employee.password);
             var t= _context.Employees.Where(em => em.email == employee.email && em.password == employee.password).FirstOrDefault();
             if (t == null) {
                 return BadRequest();
@@ -83,7 +94,7 @@ namespace HealthcareAPI.Controllers
                 return BadRequest();
             }
 
-            employee.password = EncryptPwd(employee.password);
+            //employee.password = EncryptPwd(employee.password);
 
             _context.DenoteEmployeeModified(employee);
 
@@ -134,43 +145,43 @@ namespace HealthcareAPI.Controllers
 
         }
 
-        [HttpDelete("/employee/{id}")]
-        public async Task<IActionResult> DeleteEmployee (int id)
-        {
-            if (_context.Employees == null)
-            {
-                return NotFound();
-            }
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee == null)
-            {
-                return NotFound();
-            }
+        //[HttpDelete("/employee/{id}")]
+        //public async Task<IActionResult> DeleteEmployee (int id)
+        //{
+        //    if (_context.Employees == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var employee = await _context.Employees.FindAsync(id);
+        //    if (employee == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            _context.Employees.Remove(employee);
-            await _context.CommitChangesAsync();
-            return NoContent();
-        }
+        //    _context.Employees.Remove(employee);
+        //    await _context.CommitChangesAsync();
+        //    return NoContent();
+        //}
 
         private bool EmployeeExists(int id)
         {
             return (_context.Employees?.Any(e => e.employee_id == id)).GetValueOrDefault();
         }
 
-        private string EncryptPwd(string password)
-        {
-            SHA256 myHash = SHA256.Create();
-            string salt = "wim";
-            string combined = salt + password;
+        //private string EncryptPwd(string password)
+        //{
+        //    SHA256 myHash = SHA256.Create();
+        //    string salt = "wim";
+        //    string combined = salt + password;
 
-            byte[] bytes = new byte[combined.Length * sizeof(char)];
-            System.Buffer.BlockCopy(combined.ToCharArray(), 0, bytes, 0, bytes.Length);
+        //    byte[] bytes = new byte[combined.Length * sizeof(char)];
+        //    System.Buffer.BlockCopy(combined.ToCharArray(), 0, bytes, 0, bytes.Length);
 
-            byte[] hashvalue = myHash.ComputeHash(bytes);
-            string hash = BitConverter.ToString(hashvalue).Replace("-", "");
+        //    byte[] hashvalue = myHash.ComputeHash(bytes);
+        //    string hash = BitConverter.ToString(hashvalue).Replace("-", "");
 
-            return hash;
-        }
+        //    return hash;
+        //}
 
 
     }
